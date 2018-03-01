@@ -1,10 +1,7 @@
 function initCamera() {
   // Uncomment and fill in the correct selectors below.
-  // capture($('<Your code here>'),
-  //        $('<Your code here>'),
-  //        $('<Your code here>'));
     capture($('#camera-video'),
-          $('#camera-canvas'),
+          document.getElementById('camera-canvas'),
           $('#camera-button'));
 }
 
@@ -13,7 +10,7 @@ function capture(video, canvas, snapshotButton) {
   //Setup navigator for all versions of browsers.
   navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia ||
               navigator.mozGetUserMedia || navigator.msGetUserMedia;
-  var ctx = canvas[0].getContext('2d');
+  var ctx = canvas.getContext('2d');
 
   var successCallback = function(mediaStream) {
     //The success callback function. On user click of snapshot button,
@@ -25,8 +22,8 @@ function capture(video, canvas, snapshotButton) {
         var width = video.width();
         var height = video.height();
         
-        canvas.attr('width', width);
-        canvas.attr('height', height);
+        canvas.width = width;
+        canvas.height = height;
         ctx.drawImage(video[0], 0, 0, width, height);
     });
   };
@@ -43,3 +40,6 @@ function capture(video, canvas, snapshotButton) {
 
 };
 
+$(document).ready(function() {
+  initCamera();
+});
